@@ -1,0 +1,22 @@
+{
+  "name": "backend_arrendamientos_jansel",
+  "version": "1.0.0",
+  "description": "Este es el backend de arrendamientos jansel :D",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/main.js"
+  },
+  "keywords": [
+    "arrendamiento",
+    "jansel"
+  ],
+  "author": "JANSEL",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.15",
+    "nodemon": "^1.17.3"
+  }
+}
