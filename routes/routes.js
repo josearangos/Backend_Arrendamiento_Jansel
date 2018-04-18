@@ -25,9 +25,6 @@ api.post('/homes/search',function(req, res){
 
 });
 
-api.get('/mulatos',function(req, res){
-    return res.status(200).send({message:"HOLAAAAAAAAA"});
-})
 
 
 module.exports=api;
