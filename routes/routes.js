@@ -7,6 +7,8 @@ const homesCtrl= require('../controllers/homeController');
 const api=express.Router();
 
 api.post('/homes/search',function(req, res){
+    
+    
     var queryHomes= {
         checkIn  : req.body.checkIn,
         checkOut : req.body.checkOut,

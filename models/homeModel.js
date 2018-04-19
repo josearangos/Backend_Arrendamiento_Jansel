@@ -14,7 +14,7 @@ const homeShchema= Schema(
             longitude: String
         },
         city: String,
-        type: Number,
+        type: String,
         rating: Number,
         totalAmount: Number,
         pricePerNight: Number,

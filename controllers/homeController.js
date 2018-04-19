@@ -8,14 +8,77 @@ var agency ={
     nit:"1212312121-12121212"
 };
 
-function getHomes(queryHomes, callback){
+function daysDifference(checkIn,checkOut){
+    checkIn = checkIn.split("-");
+    checkOut = checkOut.split("-");
+    var dateFrom = new Date(checkIn[2], checkIn[1]-1, checkIn[0]).getTime();
+    var dateTo = new Date(checkOut[2], checkOut[1]-1, checkOut[0]).getTime();    
+    
+    var days = dateTo - dateFrom;
+    var diff=days/(1000 * 60 * 60 * 24);
+    return diff;  
+
+}
+
+// convierte de BOG --> Bogota, ya que la solicitud viene con el prefijo BOG
+function cityConverter(codeCity){
+    var cityConvert="";
+    switch (codeCity) {
+        case 'MED':
+        cityConvert="Medellín";
+            break;
+        case 'BOG':
+        cityConvert="Bogota";
+            break;
+    
+    }
+    return cityConvert;
+}
+
+// convierte de type 1 --> Apartamento o 2 --> Casa
+function typeConverter(codeType){
+    var typeConvert="";
+    switch (codeType) {
+        case "1":
+            typeConvert = "Apartamento";
+            break;
+    
+        case "2":
+            typeConvert = "Casa";
+            break;
         
-    homeModel.find({},(err, homes)=>{
-        if(err){
+        case "3":
+            typeConvert = "lujo";
+            break;
+            
+    }return typeConvert;
+}
+
+
+function getHomes(queryHomes, callback){    
+    // obtengo el numero de días que se hospedará
+    var days =daysDifference(queryHomes.checkIn,queryHomes.checkOut);
+    var city=cityConverter(queryHomes.city); // convierto la ciudad del prefijo a el nombre completo
+    var type=typeConverter(queryHomes.type); // convierto el tipo de home de numero a su correspondencia
+    // Construyo la query de consulta para mongodb, en este caso se buscara todos los homes, con el city y type enviado
+    var query = {
+        city:city,
+        type:type        
+    }
+    // busco en mongodb
+    homeModel.find(query,(err, homes)=>{
+
+        if(err){ // en caso de error retorno  1 y el error
             callback(1,err);
-        }else if(!homes){
+        }else if(homes.length == 0){ // en caso de que la consulta sea vacia retorno 0 y null el dato
             callback(0,null);
-        }else{
+        }else{ // siendo positiva la consulta retorno el array
+            
+            // procedemos a calcular el totalAmount e insertarlo en el JSON de respuesta                
+            homes.forEach(function(element) {
+               element.totalAmount=days*element.pricePerNight;              
+            }); 
+            // construimos el JSON de respuesta       
             var responseHomes = {
                 agency:agency,
                 homes:homes
