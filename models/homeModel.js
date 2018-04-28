@@ -16,7 +16,7 @@ const homeShchema= Schema(
         city: String,
         type: String,
         rating: Number,
-        totalAmount: Number,
+        totalAmount: { type: Number, default: 0 },
         pricePerNight: Number,
         thumbnail:  String
    }
@@ -25,9 +25,3 @@ const homeShchema= Schema(
 // parte de la aplicación 
 
 module.exports=mongoose.model('home',homeShchema);
-
-// para importarlo de hace lo siguiente
-
-/*
-    const Palabre= require('./models/Palabra');
-*/

@@ -2,7 +2,6 @@
 
 const homeModel = require('../models/homeModel');//  importar modelo
 
-
 var agency ={
     name:"Arriendamientos Jansel",
     nit:"1212312121-12121212"
@@ -24,12 +23,22 @@ function daysDifference(checkIn,checkOut){
 function cityConverter(codeCity){
     var cityConvert="";
     switch (codeCity) {
-        case 'MED':
+        case 'CO-MDE':
         cityConvert="Medellín";
             break;
-        case 'BOG':
+        case 'CO-BOG':
         cityConvert="Bogota";
             break;
+        case 'CO-CLO':
+        cityConvert="Cali";
+            break;
+        case 'CO-SMR':
+        cityConvert="Santa Marta";
+            break;
+        case 'CO-CTG':
+            cityConvert="Cartagena";
+            break;
+        
     
     }
     return cityConvert;
@@ -48,18 +57,22 @@ function typeConverter(codeType){
             break;
         
         case "3":
-            typeConvert = "lujo";
+            typeConvert = "Luxury";
             break;
             
     }return typeConvert;
 }
 
 
-function getHomes(queryHomes, callback){    
+
+
+function getHomes(homesQuery, callback){    
+    // Validar todos los campos del JSON 
+    // Validacion de checkin y checkout
     // obtengo el numero de días que se hospedará
-    var days =daysDifference(queryHomes.checkIn,queryHomes.checkOut);
-    var city=cityConverter(queryHomes.city); // convierto la ciudad del prefijo a el nombre completo
-    var type=typeConverter(queryHomes.type); // convierto el tipo de home de numero a su correspondencia
+    var days =daysDifference(homesQuery.checkIn,homesQuery.checkOut);
+    var city=cityConverter(homesQuery.city); // convierto la ciudad del prefijo a el nombre completo
+    var type=typeConverter(homesQuery.type); // convierto el tipo de home de numero a su correspondencia
     // Construyo la query de consulta para mongodb, en este caso se buscara todos los homes, con el city y type enviado
     var query = {
         city:city,
