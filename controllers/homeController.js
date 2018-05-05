@@ -93,11 +93,15 @@ function getHomes(homesQuery, callback){
 
     // busco en mongodb
     homeModel.find(query,(err, homes)=>{
+        var responseHomes = {
+            agency:agency,
+            homes:{}
+        }  
 
         if(err){ // en caso de error retorno  1 y el error
             callback(1,err);
         }else if(homes.length == 0){ // en caso de que la consulta sea vacia retorno 0 y null el dato
-            callback(0,null);
+            callback(0,responseHomes);
         }else{ // siendo positiva la consulta retorno el array
             
             // procedemos a calcular el totalAmount e insertarlo en el JSON de respuesta                
@@ -105,10 +109,8 @@ function getHomes(homesQuery, callback){
                element.totalAmount=days*element.pricePerNight;              
             }); 
             // construimos el JSON de respuesta       
-            var responseHomes = {
-                agency:agency,
-                homes:homes
-            }
+            responseHomes.homes = homes ;
+            
             callback(0,responseHomes);
         }        
     });
