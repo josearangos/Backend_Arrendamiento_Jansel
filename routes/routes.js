@@ -33,8 +33,6 @@ api.post('/homes/search', function (req, res) {
                     homesCtrl.getHomes(homesQuery, function (err, data) {
                         if (err == 1) {
                             return res.status(500).send({ message: `Error al buscar ${data}` });
-                        } else if (data == null) {
-                            return res.status(200).send({});
                         } else if (err == 2 || err == 3) {
                             return res.status(200).send(data);
                         } else {

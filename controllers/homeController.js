@@ -95,7 +95,7 @@ function getHomes(homesQuery, callback){
     homeModel.find(query,(err, homes)=>{
         var responseHomes = {
             agency:agency,
-            homes:{}
+            homes:[]
         }  
 
         if(err){ // en caso de error retorno  1 y el error
