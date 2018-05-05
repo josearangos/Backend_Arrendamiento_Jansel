@@ -78,6 +78,19 @@ function getHomes(homesQuery, callback){
         city:city,
         type:type        
     }
+
+
+    if (days < 0) {
+        
+        callback(2, {message : "Las fecha se llegada No puede ser menor que la fecha de salida"});
+
+
+    } else if (days == 0) {
+
+        callback(3, {message: "Las fechas NO pueden ser iguales"});
+
+    } else {
+
     // busco en mongodb
     homeModel.find(query,(err, homes)=>{
 
@@ -99,6 +112,7 @@ function getHomes(homesQuery, callback){
             callback(0,responseHomes);
         }        
     });
+    }
 
 }
 

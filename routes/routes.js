@@ -33,6 +33,8 @@ api.post('/homes/search',function(req, res){
                                 return res.status(500).send({ message: `Error al buscar ${data}` });
                             } else if(data==null) {
                                 return res.status(404).send({ message: `El recurso solicitado no esta disponible` });
+                            }else if(err == 2 || err == 3){
+                                return res.status(200).send(data);
                             }else{
                                 return res.status(200).send(data);
                             }
