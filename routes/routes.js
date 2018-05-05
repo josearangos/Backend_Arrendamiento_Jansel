@@ -8,6 +8,8 @@ const homesCtrl = require('../controllers/homeController');
 const api = express.Router();
 
 
+
+
 api.post('/homes/search', function (req, res) {
 
     if (!validator.jsonIsEmpty(req.body)) {  // validar que el request no sea vacio
@@ -32,7 +34,7 @@ api.post('/homes/search', function (req, res) {
                         if (err == 1) {
                             return res.status(500).send({ message: `Error al buscar ${data}` });
                         } else if (data == null) {
-                            return res.status(200).send({  });
+                            return res.status(200).send({});
                         } else if (err == 2 || err == 3) {
                             return res.status(200).send(data);
                         } else {
