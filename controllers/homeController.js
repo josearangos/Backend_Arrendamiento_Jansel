@@ -103,54 +103,40 @@ function dateLogicalValidation(json) {
 }
 
 
-function dateCheckBetween(from,to,check) {
+function dateCheckBetween(from, to, check) {
 
-       from = from.split("-").join("/");
-       to=to.split("-").join("/");
-       check=check.split("-").join("/");
+    from = from.split("-").join("/");
+    to = to.split("-").join("/");
+    check = check.split("-").join("/");
 
-       var monthAuxFrom=from.substring(3,5);
-       var dayAuxFrom =from.substring(0,2);
+    var monthAuxFrom = from.substring(3, 5);
+    var dayAuxFrom = from.substring(0, 2);
+    var yearAuxFrom = from.substring(6, 10);
+    var from2;
 
-       console.log(from);
+    var monthAuxTo = to.substring(3, 5);
+    var dayAuxTo = to.substring(0, 2);
+    var yearAuxTo = to.substring(6, 10);
+    var to2;
 
-       from = from.replace(from.substring(0,2),dayAuxFrom);
-       from = from.replace(from.substring(3,5),monthAuxFrom);
+    var monthAuxCheck = check.substring(3, 5);
+    var dayAuxCheck = check.substring(0, 2);
+    var yearAuxCheck = check.substring(6, 10);
+    var check2;
+
+
+
+    from2 = new Date(yearAuxFrom, monthAuxFrom, dayAuxFrom );
+    to2 = new Date(yearAuxTo, monthAuxTo, dayAuxTo);
+    check2 = new Date(yearAuxCheck, monthAuxCheck, dayAuxCheck);
+
     
-
-       console.log(from);
-
-       /* var fDate,lDate,cDate;
-        fDate = Date.parse(from);
-        lDate = Date.parse(to);
-        cDate = Date.parse(check);
-    
-        if((cDate <= lDate && cDate >= fDate)) {
-            return true;
-        }
-        return false;*/
+    if (check2 >= from2  && check2 <= to2 ) {
+        return true;
     }
-
-
-function dateBetween(dateToBeEvaluated,startDate, endDate){
-
-        var ddateToBeEvaluated= new Date(dateToBeEvaluated.split("-").join("/"));
-        var dstartDate= new Date(startDate.split("-").join("/"));
-
-        var rEndDate= endDate.split("-").join("/");
-        
-        var dendDate = new Date(rEndDate);
-
-
-        
-        console.log(dendDate);
-
-        if ( ddateToBeEvaluated >dstartDate && ddateToBeEvaluated <  dendDate ) {
-            return true;
-        } else {
-            return false;  
-        }
+    return false;
 }
+
 
 
 
@@ -160,7 +146,7 @@ function getHomes(homesQuery, callback) {
     var type = typeConverter(homesQuery.type); // convierto el tipo de home de numero a su correspondencia
     // Construyo la query de consulta para mongodb, en este caso se buscara todos los homes, con el city y type enviado
     var days = daysDifference(homesQuery.checkIn, homesQuery.checkOut);
-    
+
     var query = {
         city: city,
         type: type
@@ -177,36 +163,42 @@ function getHomes(homesQuery, callback) {
                 agency: agency,
                 homes: []
             }
-
             if (err) { // en caso de error retorno  1 y el error
 
                 callback(1, err);
 
             } else if (homes.length == 0) { // en caso de que la consulta sea vacia retorno 0 y null el dato
-                
+
                 callback(0, responseHomes);
             } else { // siendo positiva la consulta retorno el array
-                          
-                //Procedemos a buscar solo las que estan en ese rango
 
-                console.log(dateCheckBetween("11-06-2018","16-06-2018","15-06-2018"));
-
-
-
-                // procedemos a calcular el totalAmount e insertarlo en el JSON de respuesta     
+                var availableHomes = [];
+                var available = true;
+                 // procedemos a calcular el totalAmount e insertarlo en el JSON de respuesta     
                 homes.forEach(function (element) {
+
                     element.totalAmount = days * element.pricePerNight;
-                   
-                    element.bookings.forEach(function(book){
-                        //console.log(dateBetween("15-06-2018", book.checkIn,book.checkOut) );                   
-                      
+
+                    element.bookings.forEach(function (book) {
+                        
+                        if(dateCheckBetween(book.checkIn,book.checkOut, "11-07-2018")){
+                           available= false;
+                        }    
+                        
                         
                     });
+                    if(available){
+                        availableHomes.push(element);
+                    }else{
+
+                        available=true;
+                    }
                     
                 });
 
+               
                 // construimos el JSON de respuesta       
-                responseHomes.homes = homes;
+                responseHomes.homes = availableHomes;
 
                 callback(0, responseHomes);
             }
