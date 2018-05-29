@@ -34,4 +34,18 @@ api.post('/homes/search', function (req, res) {
   
 });
 
+api.post('/homes/booking', function(req, res){
+    let failedDates = validator.dateFormatValidation(req.body);
+    if(req.body.id == undefined || req.body.checkIn == undefined || req.body.checkOut == undefined){
+        return res.status(404).send({ message: 'No contiene los parametros, formato = (checkIn, checkOut, id)' + failedDates });
+    }
+    if(failedDates){/*Si está vacio es true (no hay error)*/
+        return res.status(404).send({ message: 'Fechas con formato incorrecto:' + failedDates });
+    }
+    if(isNaN(req.body.id)){
+        return res.status(404).send({ message: 'El id esta en un formato incorrecto, debe ser numerico' });
+    }
+    return res.status(200).send({message: 'funciona'});
+});
+
 module.exports = api;
