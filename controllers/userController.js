@@ -6,8 +6,20 @@ var models = require('../models/userModel'),
     userBookings = models.UserBookings
 
 
-function myBookings(homesQuery, callback) {
+function myBookings(uid, callback) {
 
+    console.log("Entró al método con el uid: " + uid);
+
+    var query = {
+        uid:uid
+    }
+    userModel.find(query,(err, user)=>{      
+        if (err) { // en caso de error retorno  1 y el error
+            callback(1, err);
+        } else{
+            callback(0, user);
+        } 
+    });
 }
 
 

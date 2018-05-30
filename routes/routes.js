@@ -43,18 +43,15 @@ api.post('/homes/myBooking', function (req, res) {
     else{
         firebase.verifyIdToken(idToken, function(error, uid){
             if (!error) {
-                console.log(uid);
                 userCtrl.myBookings(uid, function (err, data) {
                     if (err == 1) {
                         return res.status(500).send({ message: `Error al buscar ${data}` });
-                    } else if (err == 2 || err == 3) {
-                        return res.status(200).send(data);
-                    } else {
+                    }
+                    else{
                         return res.status(200).send(data);
                     }
                 });
             } else {
-                console.log(uid);
                 return res.status(404).send({ message: uid});
             }      
         });
