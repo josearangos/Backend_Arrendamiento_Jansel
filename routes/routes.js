@@ -5,8 +5,9 @@ var validator = require('../validations/validator');
 
 //controlador
 const homesCtrl = require('../controllers/homeController');
+const userCtrl = require('../controllers/userController');
 const api = express.Router();
-
+const firebase = require ('../externalServices/firebase');
 
 api.post('/homes/search', function (req, res) {
 
@@ -32,6 +33,32 @@ api.post('/homes/search', function (req, res) {
         return res.status(404).send({ message:generalValidation[1]});
     }
   
+});
+
+api.post('/homes/myBooking', function (req, res) {
+    var idToken = req.get('token');
+    if (idToken === void 0) {
+        return res.status(404).send({ message: "el parametro token en el header no puede estar vacio"});
+    }
+    else{
+        firebase.verifyIdToken(idToken, function(error, uid){
+            if (!error) {
+                console.log(uid);
+                userCtrl.myBookings(uid, function (err, data) {
+                    if (err == 1) {
+                        return res.status(500).send({ message: `Error al buscar ${data}` });
+                    } else if (err == 2 || err == 3) {
+                        return res.status(200).send(data);
+                    } else {
+                        return res.status(200).send(data);
+                    }
+                });
+            } else {
+                console.log(uid);
+                return res.status(404).send({ message: uid});
+            }      
+        });
+    }
 });
 
 module.exports = api;
