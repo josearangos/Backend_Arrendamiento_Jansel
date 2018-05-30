@@ -155,11 +155,34 @@ function getHomes(homesQuery, callback) {
     }
 }
 
+function isAvailability(home, checkin, checkOut){
 
+}
+
+function homeAvailability(body, callback){
+    let query = {
+        id: body.id
+    };
+    homeModel.find(query, (err, homes) => {
+        let home;
+        if (err) { // en caso de error retorno  1 y false
+            callback(1, "Ha ocurrido un error");
+        } else if (homes.length == 0) { // en caso de que la consulta sea vacia retorno 0 y null el dato
+            callback(1, "La existe la casa solicitada");
+        } else { // siendo positiva la consulta retorno el array
+            // procedemos a calcular el totalAmount e insertarlo en el JSON de respuesta                
+            homes.forEach(function (element) {
+                home = element;
+            });
+            callback(0, isAvailability(home, body.checkin, body.checkOut));
+        }
+    });
+}
 
 
 module.exports = {
-    getHomes
+    getHomes,
+    homeAvailability
 
 }
 

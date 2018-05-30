@@ -58,7 +58,17 @@ api.post('/homes/booking', function(req, res){
     }
     firebase.verifyIdToken(req.headers.token, function(err, data){
         if (!err) {/*User logged */
-
+            homesCtrl.homeAvailability(req.body, function(err, res){
+                if(err == 0){
+                    response.mensaje = res;
+                    return res.status(500).send(response);
+                }
+                if(!data){
+                    response.mensaje = "La casa esta ocupada en las fechas indicadas";
+                    return res.status(200).send(response);
+                }
+                
+            });
         } else {
             response.mensaje = "El token es incorrecto";
             return res.status(404).send(response);
