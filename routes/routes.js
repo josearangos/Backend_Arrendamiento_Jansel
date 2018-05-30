@@ -2,7 +2,7 @@
 'use strict' // convencio de EMC6
 const express = require('express');
 var validator = require('../validations/validator');
-
+const firebase = require ('../externalServices/firebase');
 //controlador
 const homesCtrl = require('../controllers/homeController');
 const api = express.Router();
@@ -35,17 +35,35 @@ api.post('/homes/search', function (req, res) {
 });
 
 api.post('/homes/booking', function(req, res){
+    let response = {
+        "agency": {
+            "name": "",
+            "nit": ""
+        },
+        "codigo": 0,
+        "message": ""
+    };
     let failedDates = validator.dateFormatValidation(req.body);
     if(req.body.id == undefined || req.body.checkIn == undefined || req.body.checkOut == undefined){
-        return res.status(404).send({ message: 'No contiene los parametros, formato = (checkIn, checkOut, id)' + failedDates });
+        response.mensaje = "No contiene los parametros necesarios (checkIn, checkOut, id)";
+        return res.status(404).send(response);
     }
     if(failedDates){/*Si está vacio es true (no hay error)*/
-        return res.status(404).send({ message: 'Fechas con formato incorrecto:' + failedDates });
+        response.mensaje = "Fechas con formato incorrecto:" + failedDates;
+        return res.status(404).send(response);
     }
     if(isNaN(req.body.id)){
-        return res.status(404).send({ message: 'El id esta en un formato incorrecto, debe ser numerico' });
+        response.mensaje = "El id esta en un formato incorrecto, debe ser numerico";
+        return res.status(404).send(response);
     }
-    return res.status(200).send({message: 'funciona'});
+    firebase.verifyIdToken(req.headers.token, function(err, data){
+        if (!err) {/*User logged */
+
+        } else {
+            response.mensaje = "El token es incorrecto";
+            return res.status(404).send(response);
+        }      
+    });
 });
 
 module.exports = api;
