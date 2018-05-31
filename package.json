@@ -4,8 +4,9 @@
   "description": "Este es el backend de arrendamientos jansel :D",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/main.js",
-    "test": "mocha"
+    "coverage": "./node_modules/nyc/bin/nyc.js report --reporter=lcov --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage --token 63afc1fab60e41b5a74ab204e58aae06 && rm -rf ./coverage",
+    "test-with-coverage": "./node_modules/nyc/bin/nyc.js ./node_modules/mocha/bin/mocha --reporter spec test/*/.js",
+    "start": "nodemon server/main.js"
   },
   "keywords": [
     "arrendamiento",
