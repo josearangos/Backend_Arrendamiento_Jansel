@@ -43,7 +43,7 @@ api.post('/homes/booking', function(req, res){
         "codigo": 0,
         "message": ""
     };
-    let failedDates = validator.dateFormatValidation(req.body);
+    let failedDates = homesCtrl.dateLogicalValidation(req.body);
     if(req.body.id == undefined || req.body.checkIn == undefined || req.body.checkOut == undefined){
         response.message = "No contiene los parametros necesarios (checkIn, checkOut, id)";
         return res.status(404).send(response);
@@ -52,7 +52,7 @@ api.post('/homes/booking', function(req, res){
         response.message = "El usuario no esta logeado";
         return res.status(404).send(response);
     }
-    if(failedDates[0]){/*Si está vacio es true (no hay error)*/
+    if(!failedDates[0]){
         response.message = "Fechas con formato incorrecto:" + failedDates[1];
         return res.status(404).send(response);
     }
