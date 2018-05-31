@@ -12,6 +12,10 @@ describe('testUnit HomeController',function(){
         it('converts CO-SMR  to Santa Marta',function(){
             assert.equal(homeController.cityConverter('CO-SMR'),"Santa Marta");          
          });
+
+         it('converts CO-CTG to Cartagena',function(){
+            assert.equal(homeController.cityConverter('CO-CTG'),"Cartagena");          
+         });
         
     });
 
