@@ -212,7 +212,12 @@ function getHomes(homesQuery, callback) {
 }
 
 module.exports = {
-    getHomes
+    getHomes,
+    dateCheckBetween,
+    dateLogicalValidation,
+    typeConverter,
+    cityConverter
+
 
 }
 
