@@ -2,12 +2,14 @@
 'use strict' // convencio de EMC6
 const express = require('express');
 var validator = require('../validations/validator');
+const config=require('../config');
 
 //controlador
 const homesCtrl = require('../controllers/homeController');
 const userCtrl = require('../controllers/userController');
 const api = express.Router();
 const firebase = require ('../externalServices/firebase');
+const agency = config.agency;
 
 api.post('/homes/search', function (req, res) {
 
@@ -38,21 +40,24 @@ api.post('/homes/search', function (req, res) {
 api.post('/homes/myBooking', function (req, res) {
     var idToken = req.get('token');
     if (idToken === void 0) {
-        return res.status(404).send({ message: "el parametro token en el header no puede estar vacio"});
+        return res.status(401).send({ message: "El parametro token en el header no puede estar vacio"});
     }
     else{
         firebase.verifyIdToken(idToken, function(error, uid){
             if (!error) {
-                userCtrl.myBookings(uid, function (err, data) {
+                userCtrl.myBookings(uid, agency, function (err, data) {
                     if (err == 1) {
-                        return res.status(500).send({ message: `Error al buscar ${data}` });
+                        return res.status(204).send({ message: "Not user found" });
+                    }
+                    if (err == 2) {
+                        return res.status(204).send();
                     }
                     else{
                         return res.status(200).send(data);
                     }
                 });
             } else {
-                return res.status(404).send({ message: uid});
+                return res.status(500).send({ message: "error: " + uid});
             }      
         });
     }

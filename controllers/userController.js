@@ -1,29 +1,41 @@
 
 'use strict' // convencio de EMC6
 
-var models = require('../models/userModel'),
-    userModel = models.User,
-    userBookings = models.UserBookings
+
+const userModel = require('../models/userModel');
+const homeModel = require('../models/homeModel');//  importar modelo
 
 
-function myBookings(uid, callback) {
-
-    console.log("Entró al método con el uid: " + uid);
-
-    var query = {
-        uid:uid
+function myBookings(uid,agency, callback) {
+    var responseBookings = {
+        agency: agency,
+        homes: []
     }
-    userModel.find(query,(err, user)=>{      
-        if (err) { // en caso de error retorno  1 y el error
-            callback(1, err);
-        } else{
-            callback(0, user);
-        } 
-    });
+
+    userModel.findOne({'uid': uid}, function(err, userData){
+        if(err)  callback(1, "Error buscando usuario");
+        if(userData){
+            var idBookings = userData.bookings.map(b => b.bookingId);
+
+            homeModel.aggregate([
+                { $unwind: "$bookings" },
+                {
+                    $match: {
+                        'bookings.bookingId': { $in: idBookings}
+                    }
+                }
+            ], function (err, result) {
+                if (err) {
+                    callback(2, "Error buscando homes del usuario");
+                }
+                responseBookings.homes = result;
+                callback(0, responseBookings);
+            });    
+
+        }
+    })  
+
 }
-
-
-
 
 module.exports = {
     myBookings
