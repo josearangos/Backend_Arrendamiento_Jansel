@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const app=require('../app'); // importamos toda la logica del servidor
 const config=require('../config');
 
-const firebase = require ('../externalServices/firebase');
 
 var server = require('http').Server(app); //crear el servidor http usando la libreria express
 
@@ -20,6 +19,7 @@ mongoose.connect(config.dbMongo, (err, res) => {
         console.log(`API corriendo por el puerto: ${config.port}`);
     })
 });
+
 
 
 
