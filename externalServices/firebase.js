@@ -9,14 +9,20 @@ admin.initializeApp({
 
 function verifyIdToken(idToken, callback) {
 
-    admin.auth().verifyIdToken(idToken, callback)
-        .then(function (decodedToken) {
-            var uid = decodedToken.uid;
-            callback(false, uid);
-        }).catch(function (error) {
-            callback(true, error);
+    if (idToken.length == 0) {
+        callback(true, "token vacio");
+    } else {
 
-        });
+        admin.auth().verifyIdToken(idToken, callback)
+            .then(function (decodedToken) {
+                var uid = decodedToken.uid;
+                callback(false, uid);
+            }).catch(function (error) {
+                callback(true, error);
+
+            });
+    }
+
 }
 
 module.exports = {
