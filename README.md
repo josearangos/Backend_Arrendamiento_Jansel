@@ -3,4 +3,4 @@
 
 ...
 
-[ ![Codeship Status for josearangos/Backend_Arrendamiento_Jansel](https://app.codeship.com/projects/39a38630-46ad-0136-e46c-5a2a936e15da/status?branch=master)](https://app.codeship.com/projects/292176)
+[ ![Codeship Status for josearangos/Backend_Arrendamiento_Jansel](https://app.codeship.com/projects/39a38630-46ad-0136-e46c-5a2a936e15da/status?branch=developer-jose)](https://app.codeship.com/projects/292176)
