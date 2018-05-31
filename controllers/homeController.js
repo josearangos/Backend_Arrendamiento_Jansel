@@ -138,8 +138,6 @@ function dateCheckBetween(from, to, check) {
 }
 
 
-
-
 function getHomes(homesQuery, callback) {
 
     var city = cityConverter(homesQuery.city); // convierto la ciudad del prefijo a el nombre completo
