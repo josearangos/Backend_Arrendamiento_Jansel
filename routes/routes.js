@@ -67,6 +67,7 @@ api.post('/homes/booking', function(req, res){
                     response.mensaje = "La casa esta ocupada en las fechas indicadas";
                     return res.status(200).send(response);
                 }
+                let bookingId = String(req.body.id)+req.body.checkIn+"*"+req.body.checkOut;
                 
             });
         } else {
