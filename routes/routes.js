@@ -48,8 +48,12 @@ api.post('/homes/booking', function(req, res){
         response.message = "No contiene los parametros necesarios (checkIn, checkOut, id)";
         return res.status(404).send(response);
     }
-    if(failedDates){/*Si está vacio es true (no hay error)*/
-        response.message = "Fechas con formato incorrecto:" + failedDates;
+    if(req.headers.token == undefined){
+        response.message = "El usuario no esta logeado";
+        return res.status(404).send(response);
+    }
+    if(failedDates[0]){/*Si está vacio es true (no hay error)*/
+        response.message = "Fechas con formato incorrecto:" + failedDates[1];
         return res.status(404).send(response);
     }
     if(isNaN(req.body.id)){
@@ -58,16 +62,16 @@ api.post('/homes/booking', function(req, res){
     }
     firebase.verifyIdToken(req.headers.token, function(err, data){
         if (!err) {/*User logged */
-            homesCtrl.homeAvailability(req.body, function(err, res){
-                if(err == 0){
-                    response.message = res;
+            homesCtrl.homeAvailability(req.body, function(err, resAux){
+                if(err != 0){
+                    response.message = resAux;
                     return res.status(500).send(response);
                 }
-                if(!res){
+                if(!resAux){
                     response.message = "La casa esta ocupada en las fechas indicadas";
                     return res.status(200).send(response);
                 }
-                let bookingId = String(req.body.id)+req.body.checkIn+"*"+req.body.checkOut;
+                let bookingId = String(req.body.id)+"*"+req.body.checkIn+"*"+req.body.checkOut;
                 homesCtrl.newBooking(req.body, bookingId, data, function(err, data2){
                     if(err == 1){
                         response.message = data2;

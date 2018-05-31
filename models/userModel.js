@@ -5,7 +5,7 @@ const Schema=mongoose.Schema
 
 const userShchema= Schema(
     {        
-        uid: Number,
+        uid: String,
         bookings: {type: Array, default: [] }
     }
 );
