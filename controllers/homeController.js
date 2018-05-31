@@ -2,6 +2,7 @@
 'use strict' // convencio de EMC6
 
 const homeModel = require('../models/homeModel');//  importar modelo
+const userModel = require('../models/userModel');
 
 var agency = {
     name: "Arriendamientos Jansel",
@@ -167,6 +168,34 @@ function isAvailability(checkin, checkOut, home){
     return true;
 }
 
+function newBooking(body, idBooking, idUser, callback){
+    let newBookingInHomeModel = {
+        "checkIn": body.checkin,
+        "checkOut": body.checkOut,
+        "bookingId": idBooking
+    };
+    homeModel.update({ "id" : body.id },
+                  { $addToSet: 
+                  { "bookings" : 
+                  { $each: 
+           [newBookingInHomeModel]}}}, function(err, data){
+                if(err) {callback(1, "error al insertar la reserva en la base de datos")}
+                else{
+                    userModel.update({ "uid" : idUser },
+                        { $addToSet: 
+                        { "bookings" : 
+                        { $each: 
+                        [{'bookingId': idBooking }]}}}, function(err, data){
+                            if(err) {callback(1, "error al insertar la reserva en la base de datos")}
+                            else{
+                                callback(0, "La reserva se realizo con exito");
+                            }
+                        });
+                }
+
+           });   
+}
+
 function homeAvailability(body, callback){
     let query = {
         id: body.id
@@ -190,7 +219,8 @@ function homeAvailability(body, callback){
 
 module.exports = {
     getHomes,
-    homeAvailability
+    homeAvailability,
+    newBooking
 
 }
 
