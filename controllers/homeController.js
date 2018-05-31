@@ -155,32 +155,6 @@ function getHomes(homesQuery, callback) {
     }
 }
 
-function dateCheckBetween(from, to, check) {/*Borrar ahora */
-    from = from.split("-").join("/");
-    to = to.split("-").join("/");
-    check = check.split("-").join("/");
-    var monthAuxFrom = from.substring(3, 5);
-    var dayAuxFrom = from.substring(0, 2);
-    var yearAuxFrom = from.substring(6, 10);
-    var from2;
-    var monthAuxTo = to.substring(3, 5);
-    var dayAuxTo = to.substring(0, 2);
-    var yearAuxTo = to.substring(6, 10);
-    var to2;
-    var monthAuxCheck = check.substring(3, 5);
-    var dayAuxCheck = check.substring(0, 2);
-    var yearAuxCheck = check.substring(6, 10);
-    var check2;
-    from2 = new Date(yearAuxFrom, monthAuxFrom, dayAuxFrom );
-    to2 = new Date(yearAuxTo, monthAuxTo, dayAuxTo);
-    check2 = new Date(yearAuxCheck, monthAuxCheck, dayAuxCheck);
-    
-    if (check2 >= from2 && check2 <= to2 ) {
-        return true;
-    }
-    return false;
-}
-
 function isAvailability(checkin, checkOut, home){
     let reservations = home.bookings;
     resç.forEach(element => {
