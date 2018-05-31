@@ -146,7 +146,8 @@ function getHomes(homesQuery, callback) {
     var type = typeConverter(homesQuery.type); // convierto el tipo de home de numero a su correspondencia
     // Construyo la query de consulta para mongodb, en este caso se buscara todos los homes, con el city y type enviado
     var days = daysDifference(homesQuery.checkIn, homesQuery.checkOut);
-
+    var checkInt = homesQuery.checkIn;
+    var checkOut = homesQuery.checkOut;
     var query = {
         city: city,
         type: type
@@ -180,8 +181,10 @@ function getHomes(homesQuery, callback) {
                     element.totalAmount = days * element.pricePerNight;
 
                     element.bookings.forEach(function (book) {
-                        
-                        if(dateCheckBetween(book.checkIn,book.checkOut, "11-07-2018")){
+                        var betweenright =dateCheckBetween(book.checkIn,book.checkOut,checkInt );
+                        var betweenLeft=dateCheckBetween(book.checkIn,book.checkOut,checkOut );
+                        var reverseCheckIn= dateCheckBetween(checkInt,checkOut,book.checkIn );
+                        if(betweenright ||  betweenLeft  || reverseCheckIn ){
                            available= false;
                         }    
                         
@@ -196,7 +199,6 @@ function getHomes(homesQuery, callback) {
                     
                 });
 
-               
                 // construimos el JSON de respuesta       
                 responseHomes.homes = availableHomes;
 
@@ -208,9 +210,6 @@ function getHomes(homesQuery, callback) {
         callback(2, { message: dateLogic[1] });
     }
 }
-
-
-
 
 module.exports = {
     getHomes
