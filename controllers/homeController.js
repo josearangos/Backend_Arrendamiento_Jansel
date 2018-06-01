@@ -86,7 +86,7 @@ function dateLogicalValidation(json) {
     return result;
   } else if (days < 0) {
     result[1] =
-      "Las fecha se llegada No puede ser menor que la fecha de salida";
+      "Las fecha de llegada No puede ser menor que la fecha de salida";
     return result;
   } else if (days == 0) {
     result[1] = "Las fechas NO pueden ser iguales";
@@ -259,7 +259,7 @@ function homeAvailability(body, callback) {
       callback(1, "Ha ocurrido un error");
     } else if (homes.length == 0) {
       // en caso de que la consulta sea vacia retorno 0 y null el dato
-      callback(1, "La existe la casa solicitada");
+      callback(1, "No existe la casa solicitada");
     } else {
       // siendo positiva la consulta retorno el array
       // procedemos a calcular el totalAmount e insertarlo en el JSON de respuesta

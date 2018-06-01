@@ -73,6 +73,7 @@ api.post("/homes/booking", function(req, res){
         "message": ""
     };
     let failedDates = homesCtrl.dateLogicalValidation(req.body);
+    let failFormatDates = validator.dateFormatValidation(req.body);
     if(req.body.id == undefined || req.body.checkIn == undefined || req.body.checkOut == undefined){
         response.message = "No contiene los parametros necesarios (checkIn, checkOut, id)";
         return res.status(404).send(response);
@@ -81,8 +82,12 @@ api.post("/homes/booking", function(req, res){
         response.message = "El usuario no esta logeado";
         return res.status(404).send(response);
     }
+    if(failFormatDates){
+        response.message = "Fechas con formato incorrecto: " + failFormatDates;
+        return res.status(404).send(response);
+    }
     if(!failedDates[0]){
-        response.message = "Fechas con formato incorrecto:" + failedDates[1];
+        response.message = "Fechas con formato incorrecto: " + failedDates[1];
         return res.status(404).send(response);
     }
     if(isNaN(req.body.id)){
