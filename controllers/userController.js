@@ -17,20 +17,36 @@ function myBookings(uid,agency, callback) {
         if(userData){
             var idBookings = userData.bookings.map(b => b.bookingId);
 
+            console.log(idBookings);
             homeModel.aggregate([
-                { $unwind: "$bookings" },
-                {
-                    $match: {
-                        'bookings.bookingId': { $in: idBookings}
+                { "$match": { 'bookings.bookingId': { $in: idBookings} },
+                },{ $project: { 
+                    id : "$id",
+                    name: "$name",
+                    description: "$description",
+                    location: "$location", 
+                    city: "$city",
+                    type: "$type",
+                    rating: "$rating",
+                    totalAmount: "$totalAmount",
+                    pricePerNight: "$pricePerNight",
+                    thumbnail:  "$thumbnail" ,
+                    bookings: { 
+                        $filter: { 
+                            input: "$bookings", 
+                            as: "book", 
+                            cond: { $in: ['$$book.bookingId', idBookings]} 
+                        } 
                     }
                 }
+             }
             ], function (err, result) {
                 if (err) {
                     callback(2, "Error buscando homes del usuario");
                 }
                 responseBookings.homes = result;
                 callback(0, responseBookings);
-            });    
+            });  
 
         }
     })  
