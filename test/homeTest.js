@@ -84,19 +84,63 @@ describe('testUnit HomeController',function(){
 
     });
 
-    // describe('getHomes consulta las casas disponibles en un intervalo de tiempo',function(){
+    describe('getHomes consulta las casas disponibles en un intervalo de tiempo',function(){
 
-    //     it('Retorna al consultar en las fechas "checkIn": "07-06-2018"-"checkOut": "10-06-2018", --> [true, ""]',function(){
-    //         assert.equal(homeController.getHomes({
-    //             "checkIn": "07-06-2018",
-    //             "checkOut": "10-06-2018",
-    //             "city": "MED",
-    //             "type": "1"
-    //             },0), "" );        
-    //     }); 
+        it('Retorna al consultar con la ciudad MDE, en ves de CO-MDE --> [4, Mensaje de error]',function(){
+            
+            homeController.getHomes(
+                {
+                "checkIn": "07-06-2018",
+                "checkOut": "10-06-2018",
+                "city": "MDE",
+                "type": "1"
+                }, function(err,data){
+                    assert.equal(err,4);                    
+                    
+                })          
+        }); 
+
+        it('Retorna al consultar en las fechas "checkIn": "07-06-2018"-"checkOut": "10-06-2018", --> [0, Mensaje OK]',function(){
+            
+            homeController.getHomes(
+                {
+                "checkIn": "07-06-2018",
+                "checkOut": "10-06-2018",
+                "city": "CO-MDE",
+                "type": "1"
+                }, function(err,data){
+                    assert.equal(err,0);                    
+                   
+                })          
+        }); 
+        
+        
+
+    });
+
+    describe('isAvailability Valida la logica entre las fechas diponibles y solicitadas',function(){
+        
+        it('valida entre 15-03-2015 / 30-03-2015 respecto a 15-06-2015 --> false ',function(){
+            assert.equal(homeController.isAvailability('15-03-2015','30-03-2015',
+            {"bookings":
+                [{
+                "checkIn": "12-06-2018",
+                "checkOut": "16-06-2018",
+                "bookingId": "1*12-06-2018*16-06-2018"
+                }]
+            }
+        ),true);        
+        });   
+
+           
+
+    });
+
+    
+
  
 
-    // });
+    
 
 
 });

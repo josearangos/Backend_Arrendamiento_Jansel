@@ -99,16 +99,21 @@ function dateLogicalValidation(json) {
 }
 
 function getHomes(homesQuery, callback) {
-    var city = cityConverter(homesQuery.city); // convierto la ciudad del prefijo a el nombre completo
-    var type = typeConverter(homesQuery.type); // convierto el tipo de home de numero a su correspondencia
-    // Construyo la query de consulta para mongodb, en este caso se buscara todos los homes, con el city y type enviado
-    var days = daysDifference(homesQuery.checkIn, homesQuery.checkOut);
-    var checkInt = homesQuery.checkIn;
-    var checkOut = homesQuery.checkOut;
-    var query = {
-        city: city,
-        type: type
-    }
+
+  var city = cityConverter(homesQuery.city); // convierto la ciudad del prefijo a el nombre completo
+  if (city=="") {
+    callback(4, "La ciudad no fue encontrada");
+
+  }
+  var type = typeConverter(homesQuery.type); // convierto el tipo de home de numero a su correspondencia
+  // Construyo la query de consulta para mongodb, en este caso se buscara todos los homes, con el city y type enviado
+  var days = daysDifference(homesQuery.checkIn, homesQuery.checkOut);
+  var checkInt = homesQuery.checkIn;
+  var checkOut = homesQuery.checkOut;
+  var query = {
+      city: city,
+      type: type
+  }
 
   var dateLogic = dateLogicalValidation(homesQuery); // valido  la logica de las fechas
   // que la checkin no sea mayor a checkout , no sean iguals y que checkin no sea meno a la fecha actual
@@ -277,5 +282,6 @@ module.exports = {
     cityConverter,
     homeAvailability,
     newBooking,
-    daysDifference
+    daysDifference,
+    isAvailability
 };
