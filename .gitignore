@@ -60,5 +60,10 @@ typings/
 # dotenv environment variables file
 .env
 
+<<<<<<< HEAD:.gitignore
 
 # End of https://www.gitignore.io/api/node
+=======
+# End of https://www.gitignore.io/api/node
+
+>>>>>>> c5f5896d9558f134fdb72611392720c7b86b1be4:.gitignore
