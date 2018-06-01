@@ -38,25 +38,34 @@ api.post("/homes/search", function (req, res) {
 });
 
 api.post("/homes/myBooking", function (req, res) {
+    // Get token from the post headers
     var idToken = req.get("token");
-    if (idToken === void 0) {
+
+    //Check if the token is empty
+    if (idToken === void 0) {        
         return res.status(401).send({ message: "El parametro token en el header no puede estar vacio"});
     }
     else{
+        //Send the token to firebase external method to validate user
         firebase.verifyIdToken(idToken, function(error, uid){
             if (!error) {
+                //If the token corresponds to a user
                 userCtrl.myBookings(uid, agency, function (err, data) {
                     if (err === 1) {
+                        // Return from callback with error 1: Error searching user
                         return res.status(204).send({ message: "Not user found" });
                     }
                     if (err === 2) {
+                         // Return from callback with error 2: Error searching bookings of that user
                         return res.status(204).send();
                     }
                     else{
+                        // Return data obtained from myBookings
                         return res.status(200).send(data);
                     }
                 });
             } else {
+                // Firebase token error: prints the error with the var uid
                 return res.status(500).send({ message: "error: " + uid});
             }      
         });
