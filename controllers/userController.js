@@ -1,6 +1,6 @@
-"use strict"; // convención de EMC6
+"use strict"; // EMC6
 
-//Importar los modelos a utilizar
+//Import models to be used
 const userModel = require("../models/userModel");
 const homeModel = require("../models/homeModel");
 
