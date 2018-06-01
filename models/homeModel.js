@@ -19,7 +19,7 @@ const homeShchema= Schema(
         totalAmount: { type: Number, default: 0 },
         pricePerNight: Number,
         thumbnail:  String,
-        bookings:{ type : Array , default : [] }
+        bookings: {type: Array, default: []}
    }
 );
 // para exportar el modelo y que se pueda usar desde cualquier
