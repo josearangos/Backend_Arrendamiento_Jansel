@@ -276,5 +276,6 @@ module.exports = {
     typeConverter,
     cityConverter,
     homeAvailability,
-    newBooking
+    newBooking,
+    daysDifference
 };
