@@ -111,7 +111,7 @@ api.post("/homes/booking", function(req, res){
     firebase.verifyIdToken(req.headers.token, function(err, data){//verifica que el token este activo
         if (!err) {/*User logged */
             homesCtrl.homeAvailability(req.body, function(err, resAux){//verifica que la home este disponible
-                if(err != 0){//!=0 es que paso un error
+                if(err !== 0){//!=0 es que paso un error
                     response.message = resAux;
                     return res.status(500).send(response);
                 }
@@ -122,7 +122,7 @@ api.post("/homes/booking", function(req, res){
                 //se crea el id de la reserva
                 let bookingId = String(req.body.id)+"*"+req.body.checkIn+"*"+req.body.checkOut;
                 homesCtrl.newBooking(req.body, bookingId, data, function(err, data2){//metodo que inserta la reserva
-                    if(err == 1){//Si ocurrio un error al insertar
+                    if(err === 1){//Si ocurrio un error al insertar
                         response.message = data2;
                         return res.status(500).send(response);
                     }
