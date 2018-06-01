@@ -11,3 +11,8 @@
  
 
 [ ![Codeship Status for josearangos/Backend_Arrendamiento_Jansel](https://app.codeship.com/projects/39a38630-46ad-0136-e46c-5a2a936e15da/status?branch=develop)](https://app.codeship.com/projects/292176)
+
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fdbde9b84d0d479791d5fc42ee8d325d)](https://www.codacy.com/app/josearangos/Backend_Arrendamiento_Jansel?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=josearangos/Backend_Arrendamiento_Jansel&amp;utm_campaign=Badge_Grade)
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/fdbde9b84d0d479791d5fc42ee8d325d)](https://www.codacy.com/app/josearangos/Backend_Arrendamiento_Jansel?utm_source=github.com&utm_medium=referral&utm_content=josearangos/Backend_Arrendamiento_Jansel&utm_campaign=Badge_Coverage)
