@@ -118,9 +118,9 @@ describe('testUnit HomeController',function(){
 
     });
 
-    describe('isAvailability Valida la logica entre las fechas diponibles y solicitadas',function(){
+    describe('isAvailability Valida la disponibilidad de las home, segun las fechas solicitadas y ru arreglo de reservas',function(){
         
-        it('valida entre 15-03-2015 / 30-03-2015 respecto a 15-06-2015 --> false ',function(){
+        it('valida a "12-06-2018" / "16-06-2018" respecto a 15-03-2015/30-03-2015 --> true ',function(){
             assert.equal(homeController.isAvailability('15-03-2015','30-03-2015',
             {"bookings":
                 [{
@@ -130,17 +130,79 @@ describe('testUnit HomeController',function(){
                 }]
             }
         ),true);        
-        });   
+        }); 
+        
+        it('valida a "12-06-2017" / "16-06-2019" respecto a 15-03-2018/30-03-2018 --> false ',function(){
+            assert.equal(homeController.isAvailability('15-03-2018','30-03-2018',
+            {"bookings":
+                [{
+                "checkIn": "12-06-2017",
+                "checkOut": "16-06-2019",
+                "bookingId": "1*12-06-2018*16-06-2018"
+                }]
+            }
+        ),false);        
+        }); 
 
            
 
     });
 
-    
 
- 
+    describe('homeAvailability consulta las casas disponibles en un intervalo de tiempo, segun su id',function(){
 
-    
+        it('Retorna al validar con el id = 1 en las fechas 07-04-2018 / 10-04-2018  --> true ',function(){
+            
+            homeController.homeAvailability(
+                {   
+                    "id": 1,
+                    "name": "Torre davivienda",
+                    "checkIn": "07-04-2018",
+                    "checkOut": "10-04-2018"
+                },  function(err, resAux){
+                    assert.equal(err,true);                    
+                    
+                })          
+        }); 
+
+        it('Retorna al validar con el id = 30 en las fechas 07-04-2018 / 10-04-2018  --> false',function(){
+            
+            homeController.homeAvailability(
+                {   
+                    "id": 30,
+                    "name": "Torre davivienda",
+                    "checkIn": "07-04-2018",
+                    "checkOut": "10-04-2018"
+                },  function(err, resAux){
+                    assert.equal(err,false);                    
+                    
+                })          
+        });
+
+    });
+
+    describe('newBooking Realiza una nueva reserva',function(){
+
+        it('Retorna al validar una nueva reserva --> 1 ',function(){
+            
+            homeController.newBooking(
+                {   
+                    "id": 1,
+                    "name": "Torre davivienda   ",
+                    "checkIn": "07-04-2018",
+                    "checkOut": "10-04-2018"
+                }, "1*12-06-2018*16-06-2018", "9Mkgz46wmQX0nNSKqucrtkNaYJp1", 
+                function(err, data){
+                    assert.equal(err,1);                    
+                })          
+        }); 
+
+        
+
+    });
+           
+
+       
 
 
 });
