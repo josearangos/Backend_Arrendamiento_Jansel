@@ -61,6 +61,8 @@ api.post('/homes/myBooking', function (req, res) {
             }      
         });
     }
+});
+
 api.post('/homes/booking', function(req, res){
     let response = {
         "agency": {

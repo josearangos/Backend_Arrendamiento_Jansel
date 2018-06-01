@@ -1,25 +1,21 @@
+"use strict"; // convención de EMC6
 
-'use strict' // convencio de EMC6
-
-
-const userModel = require('../models/userModel');
-const homeModel = require('../models/homeModel');//  importar modelo
+//Importar los modelos a utilizar
+const userModel = require("../models/userModel");
+const homeModel = require("../models/homeModel");
 
 
 function myBookings(uid,agency, callback) {
-    var responseBookings = {
-        agency: agency,
-        homes: []
-    }
+    var responseBookings = { agency, homes: [] };
 
-    userModel.findOne({'uid': uid}, function(err, userData){
-        if(err)  callback(1, "Error buscando usuario");
+    userModel.findOne({uid}, function(err, userData){
+        if(err)  {
+            callback(1, "Error buscando usuario");
+        }
         if(userData){
-            var idBookings = userData.bookings.map(b => b.bookingId);
-
-            console.log(idBookings);
+            var idBookings = (userData.bookings).map(b => b.bookingId);
             homeModel.aggregate([
-                { "$match": { 'bookings.bookingId': { $in: idBookings} },
+                { "$match": { "bookings.bookingId": { $in: idBookings} },
                 },{ $project: { 
                     id : "$id",
                     name: "$name",
@@ -35,7 +31,7 @@ function myBookings(uid,agency, callback) {
                         $filter: { 
                             input: "$bookings", 
                             as: "book", 
-                            cond: { $in: ['$$book.bookingId', idBookings]} 
+                            cond: { $in: ["$$book.bookingId", idBookings]} 
                         } 
                     }
                 }
@@ -49,7 +45,7 @@ function myBookings(uid,agency, callback) {
             });  
 
         }
-    })  
+    }); 
 
 }
 
