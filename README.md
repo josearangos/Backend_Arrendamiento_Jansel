@@ -9,4 +9,5 @@
  [![Kiuwan](https://www.kiuwan.com/github/josearangos/Backend_Arrendamiento_Jansel/badges/quality.svg)](https://www.kiuwan.com/github/josearangos/Backend_Arrendamiento_Jansel)
  
  
-{<img src="https://app.codeship.com/projects/39a38630-46ad-0136-e46c-5a2a936e15da/status?branch=develop" />}[https://app.codeship.com/projects/292176]
+
+[ ![Codeship Status for josearangos/Backend_Arrendamiento_Jansel](https://app.codeship.com/projects/39a38630-46ad-0136-e46c-5a2a936e15da/status?branch=develop)](https://app.codeship.com/projects/292176)
