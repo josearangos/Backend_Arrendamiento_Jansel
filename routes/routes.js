@@ -73,50 +73,56 @@ api.post("/homes/myBooking", function (req, res) {
 });
 
 api.post("/homes/booking", function(req, res){
-    let response = {
+    let response = {//esta let es la response del servicio "booking"
         "agency": {
             "name": "Arrendamientos Santa Fé",
             "nit": "1123-1233-12313-51414"
         },
-        "codigo": 0,
+        "codigo": 0,//Para que por defecto, diga que hay un error en alguna validación o metodo
         "message": ""
     };
-    let failedDates = homesCtrl.dateLogicalValidation(req.body);
-    let failFormatDates = validator.dateFormatValidation(req.body);
+    let failedDates = homesCtrl.dateLogicalValidation(req.body);//establece si el contenido de las fechas esta erroneo
+    let failFormatDates = validator.dateFormatValidation(req.body);//establece si las fechas estan en un formato erroneo
+    //Para ver que el Json que viene en el require contenga los parametros necesarios
     if(req.body.id == undefined || req.body.checkIn == undefined || req.body.checkOut == undefined){
         response.message = "No contiene los parametros necesarios (checkIn, checkOut, id)";
         return res.status(404).send(response);
     }
+    //Para validar que el require contenga algun token
     if(req.headers.token == undefined){
         response.message = "El usuario no esta logeado";
         return res.status(404).send(response);
     }
+    //Aplicando lo obtenido anteriormente
     if(failFormatDates){
         response.message = "Fechas con formato incorrecto: " + failFormatDates;
         return res.status(404).send(response);
     }
+    //Aplicando lo obtenido anteriormente
     if(!failedDates[0]){
         response.message = "Fechas con formato incorrecto: " + failedDates[1];
         return res.status(404).send(response);
     }
+    //validando que el id sea numerico
     if(isNaN(req.body.id)){
         response.message = "El id esta en un formato incorrecto, debe ser numerico";
         return res.status(404).send(response);
     }
-    firebase.verifyIdToken(req.headers.token, function(err, data){
+    firebase.verifyIdToken(req.headers.token, function(err, data){//verifica que el token este activo
         if (!err) {/*User logged */
-            homesCtrl.homeAvailability(req.body, function(err, resAux){
-                if(err != 0){
+            homesCtrl.homeAvailability(req.body, function(err, resAux){//verifica que la home este disponible
+                if(err !== 0){//!=0 es que paso un error
                     response.message = resAux;
                     return res.status(500).send(response);
                 }
-                if(!resAux){
+                if(!resAux){//si la casa esta ocupada
                     response.message = "La casa esta ocupada en las fechas indicadas";
                     return res.status(200).send(response);
                 }
+                //se crea el id de la reserva
                 let bookingId = String(req.body.id)+"*"+req.body.checkIn+"*"+req.body.checkOut;
-                homesCtrl.newBooking(req.body, bookingId, data, function(err, data2){
-                    if(err == 1){
+                homesCtrl.newBooking(req.body, bookingId, data, function(err, data2){//metodo que inserta la reserva
+                    if(err === 1){//Si ocurrio un error al insertar
                         response.message = data2;
                         return res.status(500).send(response);
                     }
@@ -125,7 +131,7 @@ api.post("/homes/booking", function(req, res){
                     return res.status(200).send(response);
                 });
             });
-        } else {
+        } else {//en caso de que el token este errado
             response.message = "El token es incorrecto";
             return res.status(404).send(response);
         }      

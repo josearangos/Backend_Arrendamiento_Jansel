@@ -1,9 +1,9 @@
 'use strict'
 
-const mongoose= require('mongoose');
-const Schema=mongoose.Schema
+const mongoose= require('mongoose');//importando mongoose
+const Schema=mongoose.Schema;//obteniendo Schema
 
-const homeShchema= Schema(
+const homeSchema= Schema(
        {        
         id: Number,
         name: String,
@@ -25,4 +25,4 @@ const homeShchema= Schema(
 // para exportar el modelo y que se pueda usar desde cualquier
 // parte de la aplicación 
 
-module.exports=mongoose.model('home',homeShchema);
+module.exports=mongoose.model('home',homeSchema);
