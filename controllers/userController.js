@@ -60,6 +60,38 @@ function myBookings(uid,agency, callback) {
 
 }
 
+function removeBooking(uid, bookingId, agency, callback) {
+    // JSON init with agency header
+    var responseBookings = { agency, homes: [] };
+
+    // mongoose search method to find user with the parameter uid
+    userModel.findOne({uid}, function(err, userData){
+        if(err)  {
+            // If the search fails
+            callback(1, "Error searching this user");
+        }
+        if(userData){
+            // If method returns data from user with uid
+            // idBookings is an array with the bookingId string values
+            var idBookings = (userData.bookings).map((b) => b.bookingId);
+            // mongoDb method to find homes that has sub-document booking
+            // and in this bookings has any bookingId of the idBookings array
+            homeModel.aggregate( function (err, result) {
+                if (err) {
+                    // If method returns any error
+                    callback(2, "Error searching bookings from user");
+                }
+
+                // Join the data obtained to the response JSON
+                responseBookings.homes = result;
+                // Send the data
+                callback(0, responseBookings);
+            });  
+
+        }
+    });
+}
+
 module.exports = {
     myBookings
 };
