@@ -73,13 +73,13 @@ describe('testUnit HomeController',function(){
                 }), [false, "Las fechas NO pueden ser iguales"] );        
         });  
 
-        it('Retorna al comparar fechas "checkIn": "10-06-2018"-"checkOut": "1-06-2018" --> [false, "Las fecha se llegada No puede ser menor que la fecha de salida"]  ',function(){
+        it('Retorna al comparar fechas "checkIn": "10-06-2018"-"checkOut": "1-06-2018" --> [false, "Las fecha de llegada No puede ser menor que la fecha de salida"]  ',function(){
             assert.deepEqual(homeController.dateLogicalValidation({
                 "checkIn": "10-06-2018",
                 "checkOut": "1-06-2018",
                 "city": "MED",
                 "type": "1"
-                }), [false, "Las fecha se llegada No puede ser menor que la fecha de salida"] );        
+                }), [false, "Las fecha de llegada No puede ser menor que la fecha de salida"] );        
         });  
 
     });
