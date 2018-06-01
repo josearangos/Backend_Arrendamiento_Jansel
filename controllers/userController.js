@@ -13,7 +13,7 @@ function myBookings(uid,agency, callback) {
             callback(1, "Error buscando usuario");
         }
         if(userData){
-            var idBookings = (userData.bookings).map(b => b.bookingId);
+            var idBookings = (userData.bookings).map((b) => b.bookingId);
             homeModel.aggregate([
                 { "$match": { "bookings.bookingId": { $in: idBookings} },
                 },{ $project: { 
@@ -51,4 +51,4 @@ function myBookings(uid,agency, callback) {
 
 module.exports = {
     myBookings
-}
+};
