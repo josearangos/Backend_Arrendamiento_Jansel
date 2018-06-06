@@ -186,13 +186,23 @@ describe('testUnit HomeController',function(){
             
             homeController.newBooking(
                 {   
+                    "id": 1,
+                    "name": "Torre davivienda",
                     "checkIn": "07-04-2018",
-                    "checkOut": "10-04-2018",
-                    "id": 1
-                }, "1*12-06-2018*16-06-2018", "9Mkgz46wmQX0nNSKqucrtkNaYJp1", 
-                function(err, data){
-                    assert.deepEqual(err,"4");                    
-                })          
+                    "checkOut": "10-04-2018"
+                },  
+                {"bookings":
+                    [{
+                    "bookingId": "1*07-04-2018*10-04-2018"
+                    }]
+                },
+                {
+                    "uid": "9Mkgz46wmQX0nNSKqucrtkNaYJp1"
+                },
+                    function(err, resAux){
+                        assert.equal(err,4);                     
+                    }
+                )          
         }); 
 
     });
