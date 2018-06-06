@@ -68,7 +68,7 @@ api.post("/homes/myBooking", function (req, res) {
                 });
             } else {
                 // Firebase token error: prints the error with the var uid
-                return res.status(500).send({ message: "Error: " + uid});
+                return res.status(500).send({ message: "error: " + uid});
             }      
         });
     }
