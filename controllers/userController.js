@@ -60,6 +60,43 @@ function myBookings(uid,agency, callback) {
 
 }
 
+function removeBooking(uid, myBookingId, agency, callback) {
+    // JSON init with agency header
+    var responseBookings = { agency, codigo: 0, mensaje: "Cancelacion fallida"};
+    var res = myBookingId.split("*");
+    var idHome = res[0];
+    // mongoose search method to find user with the parameter uid                
+    userModel.findOne({uid}, function(err, userData){
+        if(err)  {
+            // If the search fails
+            callback(1, "Error searching this user");
+        }
+        if(userData){
+            // If method returns data from user with uid
+            userModel.update({ 'uid': uid },
+                { $pull: { 'bookings': { bookingId: myBookingId} } },
+                function (err, result) {
+                    homeModel.update({'id':idHome}, { $pull: { 'bookings': { bookingId: myBookingId} } },
+                        function (err, result) {
+                            if(result.nModified == 0){                                                        
+                            responseBookings.codigo = 0;
+                            responseBookings.mensaje = "Cancelacion fallida, la reserva no existe.";                            
+                            callback(0, responseBookings);
+                            }
+                            else{
+                                // Join the data obtained to the response JSON
+                                responseBookings.codigo = 1;
+                                responseBookings.mensaje = "Cancelacion con exito!!!";                            
+                                // Send the data
+                                callback(0, responseBookings);
+                            }                            
+                    });                                        
+                });            
+        }
+    });
+}
+
 module.exports = {
-    myBookings
+    myBookings,
+    removeBooking
 };

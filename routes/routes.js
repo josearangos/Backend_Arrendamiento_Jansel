@@ -140,4 +140,50 @@ api.post("/homes/booking", function(req, res){
     });
 });
 
+api.delete("/homes/removeBooking", function (req, res) {
+    // Get token from the post headers
+    var idToken = req.get("token");
+    var bookingId = req.body.bookingId;
+    //Check if the token is empty
+    if (idToken === void 0) {        
+        return res.status(401).send({ message: "El parametro token en el header no puede estar vacio"});
+    }
+    else{
+        //Send the token to firebase external method to validate user
+        firebase.verifyIdToken(idToken, function(error, uid){
+            if (!error) {
+                //If the token corresponds to a user
+                //Validates the booking ID format                
+                var bookingFormat = validator.bookingIdFormat(bookingId);
+                if (bookingFormat == ""){                    
+                        userCtrl.removeBooking(uid, bookingId, agency, function (err, data) {                            
+                        if (err === 1) {
+                            // Return from callback with error 1: Error searching user
+                            return res.status(204).send({ message: "Not user found" });
+                        }
+                        if (err === 2) {
+                             // Return from callback with error 2: Error searching bookings of that user
+                            return res.status(204).send();
+                        }
+                        if (err === 3) {
+                             // Return from callback with error 3: Error searching bookings of that home                                                         
+                            return res.status(204).send(data);
+                        }
+                        else{
+                            // Return data obtained from removeBooking
+                            return res.status(200).send(data);
+                        }
+                    });
+                }
+                else{//Error validating the booking ID format                    
+                    return res.status(500).send({ message: "error: " + bookingFormat});
+                }                
+            } else {
+                // Firebase token error: prints the error with the var uid
+                return res.status(500).send({ message: "error: " + uid});
+            }      
+        });
+    }
+});
+
 module.exports = api;

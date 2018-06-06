@@ -28,6 +28,25 @@ function paramsValidator(json) {
 
 }
 
+function bookingIdFormat(json){
+    result = "";
+    if (typeof (json) != "string") {
+        result = result + " json debe ser String,";
+    }
+    var res = json.split("*");
+    if (res.length == 3){
+        var idHome = res[0];
+        var json = {"checkIn":res[1], "checkOut":res[2]};
+        var failedDates = dateFormatValidation(json);  // validar fechas checkin y checkout
+        if (failedDates.length != 0) {            
+            result = 'Fechas con formato incorrecto:' + failedDates;
+            }
+    }else{
+        result = result + "Formato del bookingId incorrecto";        
+    }    
+    return result;
+}
+
 function dateFormatValidation(json) {
     var regexNaix = /^(0[1-9]|[1-2]\d|3[01])(\-)(0[1-9]|1[012])\2(\d{4})$/;
     var validationDate = "";
@@ -112,6 +131,7 @@ module.exports = {
     paramsValidator,
     dateFormatValidation,
     paramsType,
+    bookingIdFormat,
     generalValidation
 
 }
