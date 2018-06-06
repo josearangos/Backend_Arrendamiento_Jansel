@@ -5,7 +5,7 @@ var homeController = require("../controllers/homeController");
 describe('testUnit HomeController',function(){
 
     describe('cityConverter codigo en la ciudad',function(){
-        it('converts CO-CLO en cali',function(){
+        it('converts CO-CLO en Cali',function(){
             assert.equal(homeController.cityConverter('CO-CLO'),"Cali");        
         });   
      
@@ -85,7 +85,7 @@ describe('testUnit HomeController',function(){
 
     describe('getHomes consulta las casas disponibles en un intervalo de tiempo',function(){
 
-        it('Retorna al consultar con la ciudad MDE, en ves de CO-MDE --> [4, Mensaje de error]',function(){
+        it('Retorna al consultar con la ciudad MDE, en vez de CO-MDE --> [4, Mensaje de error]',function(){
             
             homeController.getHomes(
                 {
@@ -117,7 +117,7 @@ describe('testUnit HomeController',function(){
 
     });
 
-    describe('isAvailability Valida la disponibilidad de las home, segun las fechas solicitadas y ru arreglo de reservas',function(){
+    describe('isAvailability Valida la disponibilidad de las homes, segun las fechas solicitadas y el arreglo de reservas',function(){
         
         it('valida a "12-06-2018" / "16-06-2018" respecto a 15-03-2015/30-03-2015 --> true ',function(){
             assert.equal(homeController.isAvailability('15-03-2015','30-03-2015',

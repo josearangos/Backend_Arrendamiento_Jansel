@@ -13,8 +13,8 @@ describe('testUnit userController',function(){
             userController.myBookings(
                 "9Mkgz46wmQX0nNSKqucrtkNaYJp1",
                 {
-                    "name": "Arrendamientos Santa Fé",
-                    "nit": "1123-1233-12313-51414"
+                    "name": "Arriendamientos Jansel",
+                    "nit": "1212312121-12121212"
                 },  function(err, data){
                     assert.equal(err,2);                    
                     
