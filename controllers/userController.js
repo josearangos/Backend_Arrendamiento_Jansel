@@ -13,7 +13,7 @@ function myBookings(uid,agency, callback) {
     userModel.findOne({uid}, function(err, userData){
         if(err)  {
             // If the search fails
-            callback(1, "Error buscando este usuario");
+            callback(1, "Error searching this user");
         }
         if(userData){
             // If method returns data from user with uid
@@ -46,7 +46,7 @@ function myBookings(uid,agency, callback) {
             ], function (err, result) {
                 if (err) {
                     // If method returns any error
-                    callback(2, "Error buscando las reservas del usuario");
+                    callback(2, "Error searching bookings from user");
                 }
 
                 // Join the data obtained to the response JSON
@@ -69,7 +69,7 @@ function removeBooking(uid, myBookingId, agency, callback) {
     userModel.findOne({uid}, function(err, userData){
         if(err)  {
             // If the search fails
-            callback(1, "Error buscando este usuario");
+            callback(1, "Error searching this user");
         }
         if(userData){
             // If method returns data from user with uid

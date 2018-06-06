@@ -55,7 +55,7 @@ api.post("/homes/myBooking", function (req, res) {
                 userCtrl.myBookings(uid, agency, function (err, data) {
                     if (err === 1) {
                         // Return from callback with error 1: Error searching user
-                        return res.status(204).send({ message: "Usuario no encontrado" });
+                        return res.status(204).send({ message: "Not user found" });
                     }
                     if (err === 2) {
                          // Return from callback with error 2: Error searching bookings of that user
@@ -76,9 +76,9 @@ api.post("/homes/myBooking", function (req, res) {
 
 api.post("/homes/booking", function(req, res){
     let response = {//esta let es la response del servicio "booking"
-        "agency": {            
-            name: "Arriendamientos Jansel",
-            nit: "1212312121-12121212"
+        "agency": {
+            "name": "Arrendamientos Santa Fé",
+            "nit": "1123-1233-12313-51414"
         },
         "codigo": 0,//Para que por defecto, diga que hay un error en alguna validación o metodo
         "message": ""
@@ -159,7 +159,7 @@ api.delete("/homes/removeBooking", function (req, res) {
                         userCtrl.removeBooking(uid, bookingId, agency, function (err, data) {                            
                         if (err === 1) {
                             // Return from callback with error 1: Error searching user
-                            return res.status(204).send({ message: "Usuario no encontrado" });
+                            return res.status(204).send({ message: "Not user found" });
                         }
                         if (err === 2) {
                              // Return from callback with error 2: Error searching bookings of that user
@@ -176,11 +176,11 @@ api.delete("/homes/removeBooking", function (req, res) {
                     });
                 }
                 else{//Error validating the booking ID format                    
-                    return res.status(500).send({ message: "Error: " + bookingFormat});
+                    return res.status(500).send({ message: "error: " + bookingFormat});
                 }                
             } else {
                 // Firebase token error: prints the error with the var uid
-                return res.status(500).send({ message: "Error: " + uid});
+                return res.status(500).send({ message: "error: " + uid});
             }      
         });
     }
