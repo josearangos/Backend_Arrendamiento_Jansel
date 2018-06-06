@@ -23,7 +23,6 @@ describe('testUnit HomeController',function(){
         
     });
 
-
     describe('typeConverter codigo del tipo de casa',function(){
         it('convierte de type 1 --> Apartamento ',function(){
             assert.equal(homeController.typeConverter('1'),"Apartamento");        
@@ -187,17 +186,14 @@ describe('testUnit HomeController',function(){
             
             homeController.newBooking(
                 {   
-                    "id": 1,
-                    "name": "Torre davivienda   ",
                     "checkIn": "07-04-2018",
-                    "checkOut": "10-04-2018"
+                    "checkOut": "10-04-2018",
+                    "id": 1
                 }, "1*12-06-2018*16-06-2018", "9Mkgz46wmQX0nNSKqucrtkNaYJp1", 
                 function(err, data){
-                    assert.equal(err,1);                    
+                    assert.deepEqual(err,"4");                    
                 })          
         }); 
-
-        
 
     });
            
