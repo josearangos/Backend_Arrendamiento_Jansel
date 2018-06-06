@@ -86,7 +86,7 @@ function dateLogicalValidation(json) {
     return result;
   } else if (days < 0) {
     result[1] =
-      "Las fecha de llegada no puede ser menor que la fecha de salida";
+      "Las fecha de llegada No puede ser menor que la fecha de salida";
     return result;
   } else if (days == 0) {
     result[1] = "Las fechas NO pueden ser iguales";
@@ -226,7 +226,7 @@ function newBooking(body, idBooking, idUser, callback) {
     },
     function(err, data) {
       if (err) {
-        callback(1, "Error al insertar la reserva en la base de datos home");
+        callback(1, "error al insertar la reserva en la base de datos home");
       } else {
         userModel.update(
           { uid: idUser },
@@ -242,7 +242,7 @@ function newBooking(body, idBooking, idUser, callback) {
           },
           function(err, data) {
             if (err) {
-              callback(1, "Error al insertar la reserva en la base de datos user");
+              callback(1, "error al insertar la reserva en la base de datos user");
             } else {
               callback(0, "La reserva se realizo con exito");
             }
@@ -253,6 +253,22 @@ function newBooking(body, idBooking, idUser, callback) {
   );
 }
 
+/* 
+homeAvailability recibe los siguientes parametros:
+  body -> Json con el siguiente formato = {
+      id: String,//debe ser numerico
+      checkIn: String,//tener en cuenta la mayuscula In
+      checkOut: String//tener en cuenta la mayuscula Out
+    }
+  callback -> es una funcion que contiene 2 parametros (siguiendo el estandar de los metodos callback) = 
+    function(err, data){
+      //Tu codigo en donde usas el resultado de este metodo (homeAvailability)
+    }
+homeAvailability retorna lo siguiente (en la funcion callback):
+    err -> sólo puede tomar los siguiente valores (1,0) que quieren decir respectivamente (hay error, no hay error)
+    data -> if(err == 1){data es un mensaje de error}
+            if(err == 0){data es true o false (true si la home esta disponible, false si la home no esta disponible)}
+*/
 function homeAvailability(body, callback) {
   let query = {//Json que es utilizado como parametro de busqueda en MLAB
     id: body.id
