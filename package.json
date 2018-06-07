@@ -2,9 +2,12 @@
   "name": "backend_arrendamientos_jansel",
   "version": "1.0.0",
   "description": "Este es el backend de arrendamientos jansel :D",
+  "engines": {
+    "node": "8.9.1"
+  },
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/main.js",
+    "start": "node server/main.js",
     "test": "./node_modules/nyc/bin/nyc.js ./node_modules/mocha/bin/mocha --reporter spec test/**/*.js",
     "codacy-coverage": "./node_modules/nyc/bin/nyc.js report --reporter=lcov --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage --token 63afc1fab60e41b5a74ab204e58aae06 && rm -rf ./coverage"
   },
