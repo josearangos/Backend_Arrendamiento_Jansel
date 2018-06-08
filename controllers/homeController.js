@@ -210,6 +210,7 @@ function isAvailability(checkIn, checkOut, livingPlace) {
 }
 
 function newBooking(body, idBooking, idUser, callback) {
+  let b = true;
   let newBookingInHomeModel = {
     checkIn: body.checkIn,
     checkOut: body.checkOut,
@@ -226,6 +227,7 @@ function newBooking(body, idBooking, idUser, callback) {
     },
     function(err, data) {
       if (err) {
+        b = false;
         callback(1, "error al insertar la reserva en la base de datos home");
       } else {
         userModel.update(
@@ -241,6 +243,7 @@ function newBooking(body, idBooking, idUser, callback) {
             upsert: true
           },
           function(err, data) {
+            b = false;
             if (err) {
               callback(1, "error al insertar la reserva en la base de datos user");
             } else {
@@ -248,9 +251,13 @@ function newBooking(body, idBooking, idUser, callback) {
             }
           }
         );
+        
       }
     }
   );
+  if(b){
+    callback(1, "No se pudo actualizar");
+  }
 }
 
 /* 

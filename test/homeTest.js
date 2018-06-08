@@ -191,16 +191,10 @@ describe('testUnit HomeController',function(){
                     "checkIn": "07-04-2018",
                     "checkOut": "10-04-2018"
                 },  
-                {"bookings":
-                    [{
-                    "bookingId": "1*07-04-2018*10-04-2018"
-                    }]
-                },
-                {
-                    "uid": "9Mkgz46wmQX0nNSKqucrtkNaYJp1"
-                },
+                "1*07-04-2018*10-04-2018",
+                "9Mkgz46wmQX0nNSKqucrtkNaYJp1",
                     function(err, resAux){
-                        assert.equal(err,4);                     
+                        assert.equal(err,0);                     
                     }
                 )          
         }); 
