@@ -339,26 +339,6 @@ describe('testUnit HomeController',function(){
 
    
 
-    describe('newBooking Realiza una nueva reserva',function(){
-
-        it('Retorna al validar una nueva reserva --> 1 ',function(){
-            
-            homeController.newBooking(
-                {   
-                    "id": 1,
-                    "name": "Torre davivienda",
-                    "checkIn": "07-04-2018",
-                    "checkOut": "10-04-2018"
-                },  
-                "1*07-04-2018*10-04-2018",
-                "9Mkgz46wmQX0nNSKqucrtkNaYJp1",
-                    function(err, resAux){
-                        assert.equal(err,1);                     
-                    }
-                )          
-        }); 
-
-    });
            
 
        
@@ -511,5 +491,28 @@ describe('testUnit userController',function(){
       
     });
 
+
+});
+
+
+
+describe('newBooking Realiza una nueva reserva',function(){
+
+    it('Retorna al validar una nueva reserva --> 1 ',function(){
+        
+        homeController.newBooking(
+            {   
+                "id": 1,
+                "name": "Torre davivienda",
+                "checkIn": "07-04-2018",
+                "checkOut": "10-04-2018"
+            },  
+            "1*07-04-2018*10-04-2018",
+            "9Mkgz46wmQX0nNSKqucrtkNaYJp1",
+                function(err, resAux){
+                    assert.equal(err,1);                     
+                }
+            )          
+    }); 
 
 });
