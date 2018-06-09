@@ -16,11 +16,13 @@ function myBookings(uid,agency, callback) {
             callback(1, "Error searching this user");
         }
         if(userData){
+            console.log("Esta buscando las casas del usuario");
             // If method returns data from user with uid
             // idBookings is an array with the bookingId string values
             var idBookings = (userData.bookings).map((b) => b.bookingId);
             // mongoDb method to find homes that has sub-document booking
             // and in this bookings has any bookingId of the idBookings array
+
             homeModel.aggregate([
                 { "$match": { "bookings.bookingId": { $in: idBookings} },
                 },{ $project: { 

@@ -34,6 +34,7 @@ api.post("/homes/search", function (req, res) {
             }
         });
     } else {
+    
         return res.status(404).send({ message:generalValidation[1]});
     }
   

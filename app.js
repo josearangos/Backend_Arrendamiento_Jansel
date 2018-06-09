@@ -5,7 +5,15 @@ var bodyParser = require('body-parser');
 var app = express();
 const api=require('./routes/routes');
 const config=require('./config');
+const mongoose = require('mongoose');
 
+mongoose.connect(config.dbMongo, (err, res) => {
+    if (err) {
+        return console.log(`Error al conectarse a la base de datos: ${err}`);
+    } else {
+        console.log("conecion establecida");
+    }
+});
 
 app.use(cors())
 // Importamos el facilitador de peticiones 
