@@ -353,19 +353,7 @@ describe('testUnit HomeController',function(){
                 })          
         }); 
 
-        it('Retorna al validar con el id = 30 en las fechas 07-04-2018 / 10-04-2018  --> false',function(){
-            
-            homeController.homeAvailability(
-                {   
-                    "id": 30,
-                    "name": "Torre davivienda",
-                    "checkIn": "07-04-2018",
-                    "checkOut": "10-04-2018"
-                },  function(err, resAux){
-                    assert.equal(err,false);                    
-                    
-                })          
-        });
+       
 
     });
 
@@ -503,7 +491,19 @@ describe('testUnit userController',function(){
                 })          
         }); 
         
-      
+        it('Retorna al validar con el id = 30 en las fechas 07-04-2018 / 10-04-2018  --> false',function(){
+            
+            homeController.homeAvailability(
+                {   
+                    "id": 30,
+                    "name": "Torre davivienda",
+                    "checkIn": "07-04-2018",
+                    "checkOut": "10-04-2018"
+                },  function(err, resAux){
+                    assert.equal(err,false);                    
+                    
+                })          
+        });
 
       
     });
