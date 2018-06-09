@@ -289,26 +289,7 @@ describe('testUnit HomeController', function () {
 
     });
 
-    describe('getHomes consulta las casas disponibles en un intervalo de tiempo', function () {
-
-        it('Retorna al consultar con la ciudad MDE, en ves de CO-MDE --> [4, Mensaje de error]', function () {
-
-            homeController.getHomes(
-                {
-                    "checkIn": "17-06-2018",
-                    "checkOut": "20-06-2018",
-                    "city": "MDE",
-                    "type": "1"
-                }, function (err, data) {
-                    assert.equal(err, 4);
-                })
-        });
-
-
-
-
-
-    });
+    
 
   
 
@@ -565,6 +546,28 @@ describe('myBookings consulta las reservas de cada usuario segun su iud', functi
     });
 
   
+
+
+});
+
+
+describe('getHomes consulta las casas disponibles en un intervalo de tiempo', function () {
+
+    it('Retorna al consultar con la ciudad MDE, en ves de CO-MDE --> [4, Mensaje de error]', function () {
+
+        homeController.getHomes(
+            {
+                "checkIn": "17-06-2018",
+                "checkOut": "20-06-2018",
+                "city": "MDE",
+                "type": "1"
+            }, function (err, data) {
+                assert.equal(err, 4);
+            })
+    });
+
+
+
 
 
 });
