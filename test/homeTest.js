@@ -300,19 +300,7 @@ describe('testUnit HomeController',function(){
                 })          
         }); 
 
-        it('Retorna al consultar en las fechas "checkIn": "07-06-2018"-"checkOut": "10-06-2018", --> [0, Mensaje OK]',function(){
-            
-            homeController.getHomes(
-                {
-                "checkIn": "17-06-2018",
-                "checkOut": "20-06-2018",
-                "city": "CO-MDE",
-                "type": "1"
-                }, function(err,data){
-                    assert.equal(err,0);                    
-                   
-                })          
-        }); 
+      
         
         
 
@@ -500,6 +488,20 @@ describe('testUnit userController',function(){
 
         });
         
+
+        it('Retorna al consultar en las fechas "checkIn": "07-06-2018"-"checkOut": "10-06-2018", --> [0, Mensaje OK]',function(){
+            
+            homeController.getHomes(
+                {
+                "checkIn": "17-06-2018",
+                "checkOut": "20-06-2018",
+                "city": "CO-MDE",
+                "type": "1"
+                }, function(err,data){
+                    assert.equal(err,0);                    
+                   
+                })          
+        }); 
         
       
 
