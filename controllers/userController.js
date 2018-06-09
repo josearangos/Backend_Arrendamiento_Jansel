@@ -16,7 +16,7 @@ function myBookings(uid,agency, callback) {
             callback(1, "Error searching this user");
         }
         if(userData){
-            console.log("Esta buscando las casas del usuario");
+        
             // If method returns data from user with uid
             // idBookings is an array with the bookingId string values
             var idBookings = (userData.bookings).map((b) => b.bookingId);

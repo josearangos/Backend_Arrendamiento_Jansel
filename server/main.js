@@ -9,11 +9,11 @@ var server = require('http').Server(app); //crear el servidor http usando la lib
 
 mongoose.connect(config.dbMongo, (err, res) => {
     if (err) {
-        return console.log(`Error al conectarse a la base de datos: ${err}`);
+        return //console.log(`Error al conectarse a la base de datos: ${err}`);
     } else {
-        console.log("conecion establecida");
+        //console.log("conexion establecida");
     }
     app.listen(config.port, () => {
-        console.log(`API corriendo por el puerto: ${config.port}`);
+        //console.log(`API corriendo por el puerto: ${config.port}`);
     })
 });
