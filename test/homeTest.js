@@ -82,20 +82,20 @@ describe('Pruebas de servicio', function() {
             });
     });
 
-    it('should insert a sdfgsd', (done) => {
-        chai.request(app)
-            .post('/v1/homes/search/')
-            .send( 
-                {checkIn: "07-07-2018",
-                checkOut: "10-10-2018",
-                city: "CO-MED",
-                type: "1"})
-            .end( function(err,res){
+    // it('should insert a sdfgsd', (done) => {
+    //     chai.request(app)
+    //         .post('/v1/homes/search/')
+    //         .send( 
+    //             {checkIn: "07-07-2018",
+    //             checkOut: "10-10-2018",
+    //             city: "CO-MED",
+    //             type: "1"})
+    //         .end( function(err,res){
               
-                expect(res).to.have.status(404);
-                done();
-            });
-    });
+    //             expect(res).to.have.status(404);
+    //             done();
+    //         });
+    // });
 
     it('delete', (done) => {
         chai.request(app)
