@@ -14,16 +14,16 @@ var validator = require('../validations/validator');
 describe('Pruebas de servicio', function() {
 
 
-    it('Prueba de mybookings', (done) => {
-            chai.request(app)
-            .post('/v1/homes/myBooking')         
-            .set('token',"eyJhbGciOiJSUzI1NiIsImtpZCI6IjE1ZjUyYTRhNGE5Y2MzNmZjOGEyNWZmMmQ0NzY4NmE0OGM2YjcxZWQifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20veW90ZWFycmllbmRvLWQ1MzJmIiwibmFtZSI6IkdUQSBDb2RlIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS8tWGRVSXFkTWtDV0EvQUFBQUFBQUFBQUkvQUFBQUFBQUFBQUEvNDI1MnJzY2J2NU0vcGhvdG8uanBnIiwiYXVkIjoieW90ZWFycmllbmRvLWQ1MzJmIiwiYXV0aF90aW1lIjoxNTI4NTA1OTAzLCJ1c2VyX2lkIjoicmNHNHpKcEszSWFGNjl1enk3SVhjSUlMalJpMSIsInN1YiI6InJjRzR6SnBLM0lhRjY5dXp5N0lYY0lJTGpSaTEiLCJpYXQiOjE1Mjg1MDU5MDMsImV4cCI6MTUyODUwOTUwMywiZW1haWwiOiJndGFjb2Rld2ViQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTA4MTg4NDA0NzY5MTQzNTU2MTQwIl0sImVtYWlsIjpbImd0YWNvZGV3ZWJAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.YK9jpDSi_O0dH0MuSx6Fo-EXtWlUwHTXia0Fn21sP_aPcZ_VwaSIPOWUgL_UIf60b7Q4eULu43bKUFXImrgSz_LTy_16I5QcFwvQDLAkdswW6_MpDTUB5p6lAS2N5gPLYzsG7XHf3wG6RvhB_q4WVOmZqTjkHZdhtOO5PYMWUFLhGTsx9wZ5qci7TBY5otNnZw6I-dTCE59f2vWlujXyW2_GzWcWf0PI2V6Z7zkP8P0GhYuTFlRYEZCGpgmzikN5rg6Zx03VHha8P-xU7tHEVoMbnrGPOcJXC5p9H_EW8lKN9iT3wA1pBoto0tU1GMI3VYMnvf7ZBB72_UoM_UjUbQ")
-            .send()
-            .end( function(err,res){             
-                expect(res).to.have.status(200);
-                done();
-            });
-    });
+    // it('Prueba de mybookings', (done) => {
+    //         chai.request(app)
+    //         .post('/v1/homes/myBooking')         
+    //         .set('token',"eyJhbGciOiJSUzI1NiIsImtpZCI6IjE1ZjUyYTRhNGE5Y2MzNmZjOGEyNWZmMmQ0NzY4NmE0OGM2YjcxZWQifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20veW90ZWFycmllbmRvLWQ1MzJmIiwibmFtZSI6IlNFQkFTVEnDgU4gT1NPUk5PIFpBUEFUQSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vLWc4QjhPaE04dDFFL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL3cwRmdZSklzbXJZL3Bob3RvLmpwZyIsImF1ZCI6InlvdGVhcnJpZW5kby1kNTMyZiIsImF1dGhfdGltZSI6MTUyODU1MDQyOCwidXNlcl9pZCI6InZDMzJpWHlyT0NkVDV5ZDE4MVo1V200Y1dEajIiLCJzdWIiOiJ2QzMyaVh5ck9DZFQ1eWQxODFaNVdtNGNXRGoyIiwiaWF0IjoxNTI4NTUwNDI4LCJleHAiOjE1Mjg1NTQwMjgsImVtYWlsIjoic2ViYXN0aWFuLm9zb3Jub0B1ZGVhLmVkdS5jbyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTEwMjA3MDUyNDUxNzIzNjIzNDk1Il0sImVtYWlsIjpbInNlYmFzdGlhbi5vc29ybm9AdWRlYS5lZHUuY28iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.i--I9D5ZbpmGwjn-gF4d0DgDDCSiGZpkeKZE00EMbj8VZq5Y_yOdOf5bUUCXDaTYD34TQypdlH4nv2rORZJJ0_zGR__T50YaefMeJ-LiTBiEgu6TKNXC7ZDBxL9-2K9i3_vUSvN5iDo7ZyApmeY2a3pKpAya08zrYUKETKuyTVXID6RX6pHnkgDomqY0HgUJkPrICS4UWqVwHZmq8g6n2ZpWb3MF7JnYB9H-D1k0mKJVK3xr35cbTUrL6hSSoT9ekBAmfcziCYgn7ZGE0Uy-WMsDZcgHOzNneeJdCfahOdlayFczZDb0NvYsjVvnhnx-QpfAeQPDauWrpvQHo4bpyw")
+    //         .send()
+    //         .end( function(err,res){             
+    //             expect(res).to.have.status(200);
+    //             done();
+    //         });
+    // });
 
     it('Prueba de mybookings', (done) => {
         chai.request(app)
@@ -55,7 +55,7 @@ describe('Pruebas de servicio', function() {
     it('Prueba de booking', (done) => {
         chai.request(app)
             .post('/v1/homes/booking')         
-            .set('token',"eyJhbGciOiJSUzI1NiIsImtpZCI6IjE1ZjUyYTRhNGE5Y2MzNmZjOGEyNWZmMmQ0NzY4NmE0OGM2YjcxZWQifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20veW90ZWFycmllbmRvLWQ1MzJmIiwibmFtZSI6IkdUQSBDb2RlIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS8tWGRVSXFkTWtDV0EvQUFBQUFBQUFBQUkvQUFBQUFBQUFBQUEvNDI1MnJzY2J2NU0vcGhvdG8uanBnIiwiYXVkIjoieW90ZWFycmllbmRvLWQ1MzJmIiwiYXV0aF90aW1lIjoxNTI4NTA3MzQxLCJ1c2VyX2lkIjoicmNHNHpKcEszSWFGNjl1enk3SVhjSUlMalJpMSIsInN1YiI6InJjRzR6SnBLM0lhRjY5dXp5N0lYY0lJTGpSaTEiLCJpYXQiOjE1Mjg1MDczNDEsImV4cCI6MTUyODUxMDk0MSwiZW1haWwiOiJndGFjb2Rld2ViQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTA4MTg4NDA0NzY5MTQzNTU2MTQwIl0sImVtYWlsIjpbImd0YWNvZGV3ZWJAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.euJFAPHSYsWsjybGjXhN68C_FHzTzKBknYbyQqGL4ZqQ5umIB6yKG0tnCjB_v4XpUVbW8QdOYWugpwqqnaRo-zqkDA3wYfcVWt3Sk1mfDTeMUlkchW1CzFhIDKV9-W_Fy2X1nSW_pU3Ghj791Kcglb49b7cTWMRYmTcPT0VLtwKhFCti6OZOO2UJayaJ5pjjsaRTHCz-IfmPvktzxUWCHnCdbbUjwsxgYmbOjsWeMVUKtd9TRB8bXU2oAXCg75k1kv3J50co10wgJifl8CQSBdglisco1b8cqm4ELaXlmOEd8VAk8PXR37J8GNd_NPMclBGnBAMjvDvOvORF9AyHIw")
+            .set('token',"eyJhbGciOiJSUzI1NiIsImtpZCI6IjE1ZjUyYTRhNGE5Y2MzNmZjOGEyNWZmMmQ0NzY4NmE0OGM2YjcxZWQifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20veW90ZWFycmllbmRvLWQ1MzJmIiwibmFtZSI6IlNFQkFTVEnDgU4gT1NPUk5PIFpBUEFUQSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vLWc4QjhPaE04dDFFL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL3cwRmdZSklzbXJZL3Bob3RvLmpwZyIsImF1ZCI6InlvdGVhcnJpZW5kby1kNTMyZiIsImF1dGhfdGltZSI6MTUyODU1MDQyOCwidXNlcl9pZCI6InZDMzJpWHlyT0NkVDV5ZDE4MVo1V200Y1dEajIiLCJzdWIiOiJ2QzMyaVh5ck9DZFQ1eWQxODFaNVdtNGNXRGoyIiwiaWF0IjoxNTI4NTUwNDI4LCJleHAiOjE1Mjg1NTQwMjgsImVtYWlsIjoic2ViYXN0aWFuLm9zb3Jub0B1ZGVhLmVkdS5jbyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTEwMjA3MDUyNDUxNzIzNjIzNDk1Il0sImVtYWlsIjpbInNlYmFzdGlhbi5vc29ybm9AdWRlYS5lZHUuY28iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.i--I9D5ZbpmGwjn-gF4d0DgDDCSiGZpkeKZE00EMbj8VZq5Y_yOdOf5bUUCXDaTYD34TQypdlH4nv2rORZJJ0_zGR__T50YaefMeJ-LiTBiEgu6TKNXC7ZDBxL9-2K9i3_vUSvN5iDo7ZyApmeY2a3pKpAya08zrYUKETKuyTVXID6RX6pHnkgDomqY0HgUJkPrICS4UWqVwHZmq8g6n2ZpWb3MF7JnYB9H-D1k0mKJVK3xr35cbTUrL6hSSoT9ekBAmfcziCYgn7ZGE0Uy-WMsDZcgHOzNneeJdCfahOdlayFczZDb0NvYsjVvnhnx-QpfAeQPDauWrpvQHo4bpyw")
             .send({
                 'id':'1',
                 "checkIn": "17-07-2018",
