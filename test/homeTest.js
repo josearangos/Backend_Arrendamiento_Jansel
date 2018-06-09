@@ -310,26 +310,7 @@ describe('testUnit HomeController', function () {
 
     });
 
-    describe('isAvailability Valida la disponibilidad de las home, segun las fechas solicitadas y ru arreglo de reservas', function () {
-
-        it('valida a "12-06-2018" / "16-06-2018" respecto a 15-03-2015/30-03-2015 --> true ', function () {
-            assert.equal(homeController.isAvailability('15-03-2015', '30-03-2015',
-                {
-                    "bookings":
-                        [{
-                            "checkIn": "12-06-2018",
-                            "checkOut": "16-06-2018",
-                            "bookingId": "1*12-06-2018*16-06-2018"
-                        }]
-                }
-            ), true);
-        });
-
-
-
-
-
-    });
+  
 
 
 
@@ -536,3 +517,24 @@ describe('isAvailability Valida la disponibilidad de las home, segun las fechas 
     });
 
 }); 
+
+describe('isAvailability Valida la disponibilidad de las home, segun las fechas solicitadas y ru arreglo de reservas', function () {
+
+    it('valida a "12-06-2018" / "16-06-2018" respecto a 15-03-2015/30-03-2015 --> true ', function () {
+        assert.equal(homeController.isAvailability('15-03-2015', '30-03-2015',
+            {
+                "bookings":
+                    [{
+                        "checkIn": "12-06-2018",
+                        "checkOut": "16-06-2018",
+                        "bookingId": "1*12-06-2018*16-06-2018"
+                    }]
+            }
+        ), true);
+    });
+
+
+
+
+
+});
