@@ -56,8 +56,8 @@ describe('testUnit HomeController',function(){
     describe('dateLogicalValidation valida que las fechas sean adecuadas',function(){
         it('Retorna al comparar fechas "checkIn": "07-06-2018"-"checkOut": "10-06-2018", --> [true, ""]',function(){
             assert.deepEqual(homeController.dateLogicalValidation({
-                "checkIn": "07-06-2018",
-                "checkOut": "10-06-2018",
+                "checkIn": "07-09-2018",
+                "checkOut": "10-09-2018",
                 "city": "MED",
                 "type": "1"
                 }), [true, ""] );        
@@ -65,8 +65,8 @@ describe('testUnit HomeController',function(){
 
         it('Retorna al comparar fechas "checkIn": "10-06-2018"-"checkOut": "10-06-2018" --> [false, "Las fechas NO pueden ser iguales"]  ',function(){
             assert.deepEqual(homeController.dateLogicalValidation({
-                "checkIn": "10-06-2018",
-                "checkOut": "10-06-2018",
+                "checkIn": "10-09-2018",
+                "checkOut": "10-09-2018",
                 "city": "MED",
                 "type": "1"
                 }), [false, "Las fechas NO pueden ser iguales"] );        
@@ -89,8 +89,8 @@ describe('testUnit HomeController',function(){
             
             homeController.getHomes(
                 {
-                "checkIn": "07-06-2018",
-                "checkOut": "10-06-2018",
+                "checkIn": "07-09-2018",
+                "checkOut": "10-10-2018",
                 "city": "MDE",
                 "type": "1"
                 }, function(err,data){
@@ -103,8 +103,8 @@ describe('testUnit HomeController',function(){
             
             homeController.getHomes(
                 {
-                "checkIn": "07-06-2018",
-                "checkOut": "10-06-2018",
+                "checkIn": "07-09-2018",
+                "checkOut": "10-10-2018",
                 "city": "CO-MDE",
                 "type": "1"
                 }, function(err,data){
